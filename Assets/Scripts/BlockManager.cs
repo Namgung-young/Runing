@@ -51,8 +51,6 @@ public class BlockManager : MonoBehaviour
 
     private void Update()
     {
-    
-
         if (!cubeCreat)
         {
             cubeCreat = true;

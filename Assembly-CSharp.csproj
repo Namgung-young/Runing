@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E03F3C52-6998-93F9-C6CC-30C951EF561C}</ProjectGuid>
+    <ProjectGuid>{25F715B0-2BB0-79CD-EEEF-B8C26B801FD2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,17 +56,17 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\LolController.cs" />
     <Compile Include="Assets\Scripts\BlockManager.cs" />
+    <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\BGMovement.cs" />
     <Compile Include="Assets\Scripts\MainCamera.cs" />
     <Compile Include="Assets\Scripts\initial_Cube.cs" />
-    <Compile Include="Assets\Scripts\ChickenManager.cs" />
-    <Compile Include="Assets\Scripts\Cube.cs" />
-    <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\SlowDown.cs" />
     <Compile Include="Assets\Scripts\FloatingText.cs" />
-    <Compile Include="Assets\Scripts\BGMovement.cs" />
-    <Compile Include="Assets\Scripts\LolController.cs" />
+    <Compile Include="Assets\Scripts\ChickenManager.cs" />
+    <Compile Include="Assets\Scripts\Cube.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -726,15 +726,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.2D.Animation.Samples.Runtime.csproj">
-      <Project>{C222CD3B-B0F7-126C-989E-E1BD4DBD4D37}</Project>
+      <Project>{63D4CF4C-6135-3244-A3ED-CBA9861A47F4}</Project>
       <Name>Unity.2D.Animation.Samples.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Animation.Samples.Dependency.csproj">
-      <Project>{3E79E301-5B2F-3FE0-C5EE-F70C0DC3CC0E}</Project>
+      <Project>{4CB93F96-5C1B-BAF0-3A96-971AB1545B5C}</Project>
       <Name>Unity.2D.Animation.Samples.Dependency</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Animation.Samples.Editor.csproj">
-      <Project>{4C9D95DA-06DB-C10F-1A0F-A40F50C587C9}</Project>
+      <Project>{9D0B5130-7599-D420-B70E-14AAD878FFE6}</Project>
       <Name>Unity.2D.Animation.Samples.Editor</Name>
     </ProjectReference>
   </ItemGroup>

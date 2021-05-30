@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C222CD3B-B0F7-126C-989E-E1BD4DBD4D37}</ProjectGuid>
+    <ProjectGuid>{63D4CF4C-6135-3244-A3ED-CBA9861A47F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.2D.Animation.Samples.Runtime</AssemblyName>
