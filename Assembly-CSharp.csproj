@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\FloatingText.cs" />
     <Compile Include="Assets\Scripts\ChickenManager.cs" />
     <Compile Include="Assets\Scripts\Cube.cs" />
+    <Compile Include="Assets\Scripts\BtnToPlay.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

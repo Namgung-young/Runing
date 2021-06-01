@@ -21,6 +21,9 @@ public class BlockManager : MonoBehaviour
     GameManager theManager;
     public int slowDownCount = 0;
     int slowdownCount = 0;
+    public int cubeMoveCount = 0;
+    int cubeMoveRanNum;
+    float energyHeight;
 
 
     void Start()
@@ -29,18 +32,18 @@ public class BlockManager : MonoBehaviour
         theChicken = FindObjectOfType<ChickenManager>();
         theManager = FindObjectOfType<GameManager>();
 
-        
-
         for (int i = 0; i < 100; i++)
         {
         GameObject cube = Instantiate(prefab_Cube, posStart.transform.position, Quaternion.identity);      
-        float a = Random.Range(1f , 3f);
+        float a = Random.Range(1f , 2f);
         float b = Random.Range(-1f, 5f);
-        cube.transform.GetChild(0).localScale = new Vector3(a, 2, cube.transform.GetChild(0).localScale.z);
+        cube.transform.GetChild(0).localScale = new Vector3(a, 2f, cube.transform.GetChild(0).localScale.z);
         cube.transform.position = new Vector3(cube.transform.position.x, b, cube.transform.position.z);
         poolingObjectQueue.Enqueue(cube);
         cube.SetActive(false);
         }
+
+        cubeMoveRanNum = Random.Range(3, 8);
 
         dir = posEnd.transform.position - posStart.transform.position;
         dir = dir.normalized;
@@ -70,17 +73,27 @@ public class BlockManager : MonoBehaviour
 
     IEnumerator CreateCube()
     {
-        randomNum = Random.Range(0, 100);        
+        randomNum = Random.Range(0, 100);
+        
+        cubeMoveCount++;
 
         GameObject cube = poolingObjectQueue.Dequeue();
         cube.GetComponent<Cube>().moveSpeed = cubeMoveSpeed;
         Vector3 cubeScale = cube.transform.GetChild(0).transform.localScale;
         cube.SetActive(true);
 
+        if (cubeMoveRanNum == cubeMoveCount)
+        {
+            cubeMoveCount = 0;
+            cubeMoveRanNum = Random.Range(3, 8);
+            cube.GetComponent<Cube>().getMove = false;
+        }
+
         float energyPoint = Random.Range(1f, 2.5f);
-        
-        Vector3 left = new Vector3(- cubeScale.x * 0.5f - 3f, cubeScale.y +1.5f * 0.5f + energyPoint, 0);
-        Vector3 right = new Vector3(cubeScale.x * 0.5f + 3f, cubeScale.y +1.5f * 0.5f + energyPoint, 0);      
+        energyHeight = Random.Range(3f, 8f);
+
+        Vector3 left = new Vector3(- cubeScale.x * 0.5f - energyHeight, cubeScale.y +1.5f * 0.5f + energyPoint, 0);
+        Vector3 right = new Vector3(cubeScale.x * 0.5f + energyHeight, cubeScale.y +1.5f * 0.5f + energyPoint, 0);      
         
 
         GameObject coin = Instantiate(prefab_coin);
@@ -119,7 +132,7 @@ public class BlockManager : MonoBehaviour
         float _delay = 1 + _time * 0.01f;
         yield return new WaitForSeconds(_delay);
         cubeCreat = false;
-        slowDownCount++;        
+        slowDownCount++;
     }
 
     public void DeleteCube(GameObject obj)

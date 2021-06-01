@@ -23,8 +23,7 @@ public class ChickenManager : MonoBehaviour
         theBlock = FindObjectOfType<BlockManager>();
         curJumpCount = maxJumpCount;
     }
-
-    // Update is called once per frame
+   
     void Update()
     {
         if (curJumpCount!=0)

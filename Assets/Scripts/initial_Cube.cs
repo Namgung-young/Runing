@@ -17,7 +17,7 @@ public class initial_Cube : MonoBehaviour
     void Update()
     {
         transform.Translate(dir * moveSpeed * Time.deltaTime);
-        if(transform.position.x < end.transform.position.x)
+        if(transform.position.x < end.transform.position.x -15)
         {
             Destroy(this.gameObject);
         }

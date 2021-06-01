@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Text txtScore = null;
     public Text txtBestScore = null;
     public int score = 0;
+    public int bestScore;
 
     public Queue<GameObject> queuelol = new Queue<GameObject>();
     public List<GameObject> ListLol = new List<GameObject>();
@@ -24,39 +26,28 @@ public class GameManager : MonoBehaviour
 
     bool isGameOver = false;
     bool isisGameOver = false;
+    bool isTerminal = false;
         
-    public enum State
-    {
-        FirstEndtry,
-        Initialize,
-        Playing,
-        GameOver,
-        Ready
-    }
-
-    public static State state;
-
     void Start()
     {
-        state = State.FirstEndtry;
-
-        if (state == State.FirstEndtry)
+        for (int i = 0; i < 26; i++)
         {
-            for (int i = 0; i < 26; i++)
-            {
-                GameObject clone = Instantiate(lol);
-                clone.transform.SetParent(FindObjectOfType<Canvas>().transform);
-                clone.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            GameObject clone = Instantiate(lol);
+            clone.transform.SetParent(FindObjectOfType<Canvas>().transform);
+            clone.GetComponent<RectTransform>().localPosition = Vector3.zero;
 
-                queuelol.Enqueue(clone);
-                clone.gameObject.SetActive(false);
-            }
-
-            theCam = FindObjectOfType<Camera>();
-            BG.transform.position = new Vector3(theCam.transform.position.x, theCam.transform.position.y, 0);
+            queuelol.Enqueue(clone);
+            clone.gameObject.SetActive(false);
         }
 
-        state = State.Ready;
+        theCam = FindObjectOfType<Camera>();
+        BG.transform.position = new Vector3(theCam.transform.position.x, theCam.transform.position.y, 0);
+
+        limitTime = 60f;
+        curTime = limitTime;
+        
+        int Bs = PlayerPrefs.GetInt("bestScore");
+        bestScore = Bs;
     }
 
     IEnumerator WaitTime(float _time)
@@ -66,12 +57,6 @@ public class GameManager : MonoBehaviour
    
     void Update()
     {
-        if(state == State.Ready)
-        {
-            limitTime = 60f;
-            curTime = limitTime;
-        }
-
         if (!isGameOver)
         {
             curTime -= Time.deltaTime;
@@ -85,6 +70,12 @@ public class GameManager : MonoBehaviour
                 GameOver();
             }
         }
+
+        if(isTerminal && Input.GetMouseButtonDown(0))
+        {
+            StopAllCoroutines();
+            SceneManager.LoadScene("Start");
+        }
     }
 
     void GameOver()
@@ -94,9 +85,16 @@ public class GameManager : MonoBehaviour
         FadeIn();
         txtScore.text = "Your Score : " + score.ToString();
         txtBestScore.gameObject.SetActive(true);
-        txtBestScore.text = "Best Score : 20";
+        if(score > bestScore)
+        {
+            bestScore = score;
+            PlayerPrefs.SetInt("bestScore", bestScore);
+        }
+        PlayerPrefs.Save();
+        txtBestScore.text = "Best Score : " + bestScore.ToString();
         StartCoroutine(TxtGameOverCoroutine());
-        StartCoroutine(lolCountCoroutine());        
+        StartCoroutine(lolCountCoroutine());
+        
     }
 
     IEnumerator lolCountCoroutine()
@@ -109,9 +107,13 @@ public class GameManager : MonoBehaviour
             if (queuelol.Count == 0)
             {
                 break;
-            }
+            }            
             else
             {
+                if(queuelol.Count < 20)
+                {
+                    isTerminal = true;
+                }
                 GameObject lol = queuelol.Dequeue();
                 ListLol.Add(lol.gameObject);
                 lol.gameObject.SetActive(true);
@@ -203,4 +205,5 @@ public class GameManager : MonoBehaviour
         queuelol.Enqueue(_obj);
         _obj.transform.localPosition = Vector3.zero;
     }
+    
 }
